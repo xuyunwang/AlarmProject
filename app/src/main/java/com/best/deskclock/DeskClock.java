@@ -225,7 +225,7 @@ public class DeskClock extends BaseActivity
 
         // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
         // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
-        onCreateOptionsMenu(toolbar.getMenu());
+        //onCreateOptionsMenu(toolbar.getMenu());
 
         // Configure the buttons shared by the tabs.
         mFab = findViewById(R.id.fab);
@@ -301,8 +301,8 @@ public class DeskClock extends BaseActivity
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
         // Mirror changes made to the selected tab into UiDataModel.
-        mBottomNavigation = findViewById(R.id.bottom_view);
-        mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
+        //mBottomNavigation = findViewById(R.id.bottom_view);
+        //mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
@@ -324,7 +324,7 @@ public class DeskClock extends BaseActivity
         super.onResume();
 
         // ViewPager does not save state; this honors the selected tab in the user interface.
-        updateCurrentTab();
+        //updateCurrentTab();
     }
 
     @Override
@@ -356,10 +356,16 @@ public class DeskClock extends BaseActivity
         super.onDestroy();
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        mOptionsMenuManager.onCreateOptionsMenu(menu);
+//        return true;
+//    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onCreateOptionsMenu(menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -466,23 +472,23 @@ public class DeskClock extends BaseActivity
      * UiDataModel's selected tab.
      */
     @SuppressLint("ResourceType")
-    private void updateCurrentTab() {
-        // Fetch the selected tab from the source of truth: UiDataModel.
-        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
-        // Update the selected tab in the mBottomNavigation if it does not agree with UiDataModel.
-        mBottomNavigation.setSelectedItemId(selectedTab.getPageResId());
-
-        // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
-        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
-            if (fragment.isTabSelected() && mFragmentTabPager.getCurrentItem() != i) {
-                mFragmentTabPager.setCurrentItem(i);
-                break;
-            }
-        }
-
-        mTitleView.setText(selectedTab.getLabelResId());
-    }
+//    private void updateCurrentTab() {
+//        // Fetch the selected tab from the source of truth: UiDataModel.
+//        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
+//        // Update the selected tab in the mBottomNavigation if it does not agree with UiDataModel.
+//        mBottomNavigation.setSelectedItemId(selectedTab.getPageResId());
+//
+//        // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
+//        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
+//            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
+//            if (fragment.isTabSelected() && mFragmentTabPager.getCurrentItem() != i) {
+//                mFragmentTabPager.setCurrentItem(i);
+//                break;
+//            }
+//        }
+//
+//        mTitleView.setText(selectedTab.getLabelResId());
+//    }
 
     /**
      * @return the DeskClockFragment that is currently selected according to UiDataModel
@@ -654,7 +660,7 @@ public class DeskClock extends BaseActivity
         public void selectedTabChanged(UiDataModel.Tab oldSelectedTab,
                                        UiDataModel.Tab newSelectedTab) {
             // Update the view pager and tab layout to agree with the model.
-            updateCurrentTab();
+            //updateCurrentTab();
 
             // Avoid sending events for the initial tab selection on launch and re-selecting a tab
             // after a configuration change.
